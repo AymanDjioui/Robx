@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Roblox Mod v2.7</title>
+  <meta name="description" content="Download Roblox Mod v2.7 APK for Android & iOS. Latest 2026 version with enhanced features, FPS boost, and avatar customization. Free, safe, 1M+ downloads." />
+  <meta name="keywords" content="Roblox mod, Roblox mod APK, Roblox mod iOS, Roblox mod download, Roblox mod 2026, Roblox mod menu, Roblox APK download, Roblox mod v2.7" />
+  <meta property="og:title" content="Roblox Mod v2.7 — Download Latest Version (Android & iOS)" />
+  <meta property="og:description" content="Get Roblox Mod v2.7 with FPS boost, avatar customization & more. Free download for Android & iOS. 1M+ downloads." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #080c14;
+      color: #e6edf3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px 0;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+      flex-direction: column;
+    }
+
+    /* ═══════ ANIMATED BACKGROUND ═══════ */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(47,129,247,.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(236,72,153,.05) 0%, transparent 60%),
+        linear-gradient(135deg, #080c14 0%, #0d1520 40%, #0f1628 60%, #080c14 100%);
+    }
+
+    /* Grid pattern overlay */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Floating icons */
+    .bg-icons {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bg-icon {
+      position: absolute;
+      font-size: 28px;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      filter: grayscale(.3);
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) rotate(0deg) scale(.7);
+        opacity: 0;
+      }
+      5% { opacity: .12; }
+      90% { opacity: .12; }
+      100% {
+        transform: translateY(-10vh) rotate(360deg) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Glowing orbs */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      animation: orbDrift 20s ease-in-out infinite alternate;
+    }
+    .bg-orb.orb1 {
+      width: 300px; height: 300px;
+      background: rgba(47,129,247,.07);
+      top: 10%; left: -5%;
+    }
+    .bg-orb.orb2 {
+      width: 250px; height: 250px;
+      background: rgba(139,92,246,.06);
+      bottom: 10%; right: -5%;
+      animation-delay: -10s;
+    }
+    .bg-orb.orb3 {
+      width: 200px; height: 200px;
+      background: rgba(236,72,153,.05);
+      top: 50%; left: 40%;
+      animation-delay: -5s;
+    }
+    @keyframes orbDrift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(40px, -30px); }
+    }
+
+    /* ═══════ CARD ═══════ */
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: #161b22;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.04),
+        0 24px 80px rgba(0,0,0,.6);
+    }
+
+    /* ═══════ BANNER ═══════ */
+    .banner {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .banner-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Bottom gradient fade into card */
+    .banner-fade {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(transparent, #161b22);
+      z-index: 4;
+    }
+
+    /* ═══════ APP ICON ═══════ */
+    .icon-row {
+      display: flex;
+      justify-content: center;
+      margin-top: -42px;
+      position: relative;
+      z-index: 10;
+    }
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      border: 3px solid #161b22;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+    .app-icon img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ═══════ INFO ═══════ */
+    .info {
+      text-align: center;
+      padding: 16px 24px 0;
+    }
+    .info h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -.2px;
+    }
+    .info .sub {
+      font-size: 0.82rem;
+      color: #8b949e;
+      font-weight: 500;
+    }
+
+    /* ═══════ STATS ═══════ */
+    .stats {
+      display: flex;
+      gap: 10px;
+      padding: 22px 24px;
+    }
+    .stat {
+      flex: 1;
+      background: #1c2129;
+      border: 1px solid rgba(255,255,255,.04);
+      border-radius: 14px;
+      padding: 14px 6px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .stat-val .star { color: #f0c040; font-size: .9rem; }
+    .stat-lbl {
+      font-size: .65rem;
+      color: #8b949e;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-top: 3px;
+    }
+
+    /* ═══════ PLATFORM TABS ═══════ */
+    .tabs {
+      display: flex;
+      margin: 0 24px;
+      background: #1c2129;
+      border-radius: 14px;
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,.04);
+    }
+    .tab {
+      flex: 1;
+      padding: 12px 0;
+      font-size: .9rem;
+      font-weight: 700;
+      text-align: center;
+      border: none;
+      background: none;
+      color: #8b949e;
+      border-radius: 11px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .25s;
+    }
+    .tab.active {
+      background: linear-gradient(135deg, #2f81f7, #1f6feb);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(47,129,247,.3);
+    }
+    .tab:not(.active):hover { color: #c9d1d9; }
+
+    /* ═══════ DOWNLOAD BUTTON ═══════ */
+    .dl-wrap {
+      padding: 24px 24px 24px;
+    }
+    .dl-btn {
+      display: block;
+      width: 100%;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, #58a6ff, #2f81f7, #1f6feb);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.08rem;
+      font-weight: 800;
+      text-align: center;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 28px rgba(47,129,247,.35);
+      transition: transform .15s, box-shadow .15s;
+      line-height: 1.35;
+      text-decoration: none;
+    }
+    .dl-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(47,129,247,.5);
+    }
+    .dl-btn:active { transform: scale(.98); }
+    .dl-btn .ext {
+      display: block;
+      font-size: .76rem;
+      font-weight: 600;
+      opacity: .75;
+      margin-top: 2px;
+    }
+
+    /* ═══════ ANIMATIONS ═══════ */
+    .card {
+      animation: cardIn .5s ease;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(24px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ═══════ SEO CONTENT ═══════ */
+    .seo-wrap {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+      padding: 40px 20px 60px;
+    }
+
+    .seo-section {
+      margin-bottom: 32px;
+    }
+    .seo-section h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .seo-section h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: #c9d1d9;
+      margin: 14px 0 6px;
+    }
+    .seo-section p {
+      font-size: .85rem;
+      color: #8b949e;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .seo-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .seo-section ul li {
+      font-size: .84rem;
+      color: #8b949e;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .seo-section ul li:last-child { border-bottom: none; }
+    .seo-section ul li .li-icon {
+      font-size: 16px;
+      width: 28px; height: 28px;
+      background: rgba(47,129,247,.08);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .seo-divider {
+      border: none;
+      height: 1px;
+      background: rgba(255,255,255,.04);
+      margin: 32px 0;
+    }
+
+    .ver-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ver-table tr {
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .ver-table tr:last-child { border-bottom: none; }
+    .ver-table td {
+      padding: 10px 0;
+      font-size: .84rem;
+    }
+    .ver-table td:first-child {
+      color: #8b949e;
+      font-weight: 500;
+      width: 45%;
+    }
+    .ver-table td:last-child {
+      color: #fff;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .seo-cta {
+      text-align: center;
+      margin-top: 36px;
+    }
+    .seo-cta .dl-btn {
+      display: inline-block;
+      padding: 16px 48px;
+      font-size: 1rem;
+    }
+    .seo-cta p {
+      font-size: .75rem !important;
+      margin-top: 10px;
+    }
+
+    .seo-footer {
+      text-align: center;
+      padding: 24px 0 16px;
+      border-top: 1px solid rgba(255,255,255,.04);
+    }
+    .seo-footer p {
+      font-size: .68rem !important;
+      color: rgba(139,148,158,.4) !important;
+      line-height: 1.8;
+    }
+    .seo-footer a {
+      color: rgba(139,148,158,.4);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ ANIMATED BACKGROUND ═══════ -->
+<div class="bg-layer"></div>
+<div class="bg-grid"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+<div class="bg-icons" id="bgIcons"></div>
+
+<div class="card" style="position:relative;z-index:1;">
+
+  <!-- ── BANNER ── -->
+  <div class="banner">
+    <img class="banner-img" src="images/banner.png" alt="Roblox" />
+    <div class="banner-fade"></div>
+  </div>
+
+  <!-- ── APP ICON ── -->
+  <div class="icon-row">
+    <div class="app-icon">
+      <img src="images/icon.png" alt="Roblox Icon" />
+    </div>
+  </div>
+
+  <!-- ── TITLE ── -->
+  <div class="info">
+    <h1>Roblox Mod v2.7</h1>
+    <p class="sub">Latest Update: Feb 2026</p>
+  </div>
+
+  <!-- ── STATS ── -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">4.9 <span class="star">★</span></div>
+      <div class="stat-lbl">Rating</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">1M+</div>
+      <div class="stat-lbl">Downloads</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">Free</div>
+      <div class="stat-lbl">License</div>
+    </div>
+  </div>
+
+  <!-- ── PLATFORM TABS ── -->
+  <div class="tabs">
+    <button class="tab active" id="tabAnd" onclick="setPlatform('android')">Android</button>
+    <button class="tab" id="tabIos" onclick="setPlatform('ios')">iOS</button>
+  </div>
+
+  <!-- ── DOWNLOAD BUTTON ── -->
+  <div class="dl-wrap">
+    <button class="dl-btn" onclick="triggerDownload()">
+      <span id="dlText">Download Roblox Mod v2.7</span>
+      <span class="ext" id="dlExt">.apk</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- ═══════ SEO CONTENT ═══════ -->
+<div class="seo-wrap">
+
+  <div class="seo-section">
+    <h2>⚡ What is Roblox Mod v2.7?</h2>
+    <p>
+      Roblox Mod v2.7 is the latest enhanced version of the popular Roblox experience, designed for both <strong>Android and iOS</strong> devices. This 2026 update brings major performance improvements, advanced avatar customization tools, and a smoother gameplay experience for millions of players worldwide.
+    </p>
+    <p>
+      Whether you're looking for an <strong>FPS boost</strong>, better graphics settings, or new ways to customize your character, this version delivers everything you need — completely free.
+    </p>
+  </div>
+
+  <div class="seo-section">
+    <h2>🔥 Key Features</h2>
+    <ul>
+      <li><span class="li-icon">🎨</span> Unlimited avatar customization — mix items, colors, and accessories freely</li>
+      <li><span class="li-icon">⚡</span> FPS boost & lag fix — optimized for smooth gameplay on all devices</li>
+      <li><span class="li-icon">🎮</span> Enhanced game menu with quick settings and performance overlay</li>
+      <li><span class="li-icon">🔒</span> Built-in anti-ban protection to keep your account safe</li>
+      <li><span class="li-icon">🌐</span> Multi-server support with lower ping and faster connections</li>
+      <li><span class="li-icon">📱</span> Works on Android 5.0+ and iOS 14.0+ — no root or jailbreak needed</li>
+    </ul>
+  </div>
+
+  <hr class="seo-divider" />
+
+  <div class="seo-section">
+    <h2>📋 Version Details</h2>
+    <table class="ver-table">
+      <tr><td>App Name</td><td>Roblox Mod</td></tr>
+      <tr><td>Version</td><td>2.7.0 (Latest)</td></tr>
+      <tr><td>Last Updated</td><td>February 2026</td></tr>
+      <tr><td>File Size (APK)</td><td>89.4 MB</td></tr>
+      <tr><td>File Size (IPA)</td><td>112.7 MB</td></tr>
+      <tr><td>Android</td><td>5.0 and above</td></tr>
+      <tr><td>iOS</td><td>14.0 and above</td></tr>
+      <tr><td>Price</td><td style="color:#22c55e">Free</td></tr>
+      <tr><td>Downloads</td><td>1,000,000+</td></tr>
+    </table>
+  </div>
+
+  <hr class="seo-divider" />
+
+  <div class="seo-section">
+    <h2>📲 How to Download & Install</h2>
+
+    <h3>For Android:</h3>
+    <p>
+      1. Tap the <strong>"Download"</strong> button above and select <strong>Android</strong>.<br>
+      2. Complete the quick verification to start your download.<br>
+      3. Open the <strong>.apk</strong> file and tap <strong>Install</strong>.<br>
+      4. If prompted, enable "Install from Unknown Sources" in your settings.<br>
+      5. Launch and enjoy!
+    </p>
+
+    <h3>For iOS (iPhone / iPad):</h3>
+    <p>
+      1. Tap <strong>"Download"</strong> and switch to the <strong>iOS</strong> tab.<br>
+      2. Complete the quick verification step.<br>
+      3. The <strong>.ipa</strong> file will download automatically.<br>
+      4. Follow the on-screen trust instructions in Settings → General → Device Management.<br>
+      5. Open the app and start playing!
+    </p>
+  </div>
+
+  <hr class="seo-divider" />
+
+  <div class="seo-section">
+    <h2>🆕 What's New in v2.7 (February 2026)</h2>
+    <p>
+      This update introduces several major improvements over the previous version:
+    </p>
+    <ul>
+      <li><span class="li-icon">✅</span> Rebuilt graphics engine — up to 2× FPS improvement on mid-range devices</li>
+      <li><span class="li-icon">✅</span> New avatar item catalog with 500+ accessories and outfits</li>
+      <li><span class="li-icon">✅</span> Reduced app size by 15% compared to v2.3</li>
+      <li><span class="li-icon">✅</span> Fixed crash issues on iOS 17+ devices</li>
+      <li><span class="li-icon">✅</span> Improved server connection speed by 40%</li>
+      <li><span class="li-icon">✅</span> Updated anti-ban module for February 2026 patch</li>
+    </ul>
+  </div>
+
+  <hr class="seo-divider" />
+
+  <div class="seo-section">
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <h3>Is Roblox Mod v2.7 safe?</h3>
+    <p>Yes. The app has been tested and verified by over 1 million users. It includes built-in anti-ban protection and does not require root or jailbreak access.</p>
+
+    <h3>Do I need to root my Android or jailbreak my iPhone?</h3>
+    <p>No. Roblox Mod v2.7 works on stock devices. No root, no jailbreak, no special setup required.</p>
+
+    <h3>Will my account get banned?</h3>
+    <p>The v2.7 update includes an updated anti-ban module specifically designed for the February 2026 patch. Your account stays protected.</p>
+
+    <h3>Is it really free?</h3>
+    <p>Yes — 100% free to download and use. No hidden fees, no subscriptions, no in-app purchases.</p>
+
+    <h3>What devices are supported?</h3>
+    <p>Any Android phone or tablet running Android 5.0+ and any iPhone or iPad running iOS 14.0+. Works on both old and new devices.</p>
+  </div>
+
+  <!-- Second CTA for visitors who scrolled down -->
+  <div class="seo-cta">
+    <button class="dl-btn" onclick="triggerDownload()">
+      <span>Download Roblox Mod v2.7</span>
+      <span class="ext">Free · Android & iOS</span>
+    </button>
+    <p style="color:#8b949e;">Join 1M+ players · Updated Feb 2026</p>
+  </div>
+
+  <div class="seo-footer">
+    <p>
+      This website is not affiliated with or endorsed by Roblox Corporation.
+      Roblox® is a registered trademark of Roblox Corporation.<br>
+      © 2026 Roblox Mod. All rights reserved.
+      <br><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a> · <a href="#">DMCA</a>
+    </p>
+  </div>
+
+</div>
+
+<!-- ═══════ JS ═══════ -->
+<script>
+  // ── Floating background icons ──
+  (function() {
+    const icons = ['🎮','🕹️','👾','⚔️','🏆','💎','🎯','🔥','⭐','🎲','🎪','🚀','🤖','👤','🎨','🛡️','⚡','🌟','💜','🎭','🧩','🎬','🎵','💫'];
+    const container = document.getElementById('bgIcons');
+    const count = 35;
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'bg-icon';
+      el.textContent = icons[Math.floor(Math.random() * icons.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.fontSize = (18 + Math.random() * 20) + 'px';
+      el.style.animationDuration = (12 + Math.random() * 18) + 's';
+      el.style.animationDelay = -(Math.random() * 25) + 's';
+      container.appendChild(el);
+    }
+  })();
+
+  let platform = 'android';
+
+  function setPlatform(p) {
+    platform = p;
+    const tabAnd = document.getElementById('tabAnd');
+    const tabIos = document.getElementById('tabIos');
+    const dlExt  = document.getElementById('dlExt');
+
+    if (p === 'android') {
+      tabAnd.classList.add('active');
+      tabIos.classList.remove('active');
+      dlExt.textContent = '.apk';
+    } else {
+      tabIos.classList.add('active');
+      tabAnd.classList.remove('active');
+      dlExt.textContent = '.ipa';
+    }
+  }
+
+  // ═══════════════════════════════════════
+  //  Replace URL with your content locker
+  // ═══════════════════════════════════════
+  function triggerDownload() {
+    window.location.href = 'YOUR_CONTENT_LOCKER_URL_HERE';
+  }
+</script>
+
+</body>
+</html>
