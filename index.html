@@ -12,6 +12,12 @@
   <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script>
+    // Block OGAds from auto-triggering on page load
+    window.og_autoload = false;
+    window.og_disable_autoload = true;
+  </script>
+  <script type="text/javascript" id="ogjs" src="https://www.7pix.online/cl/js/vee1dx"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -677,52 +683,27 @@
   // ═══════════════════════════════════════
   //  Content Locker Configuration
   // ═══════════════════════════════════════
-  
-  // Google Drive download link
+
   const DOWNLOAD_URL = 'https://drive.google.com/file/d/1iotUyDoZ49G2-L57PWQTMWJQvpWYcdAW/view?usp=drive_link';
-  
+
   function triggerDownload() {
     const dlBtn = document.getElementById('dlBtn');
     dlBtn.classList.add('loading');
-    
-    // Set up window variable for locker to reference
-    window.downloadURL = DOWNLOAD_URL;
-    
-    // Load the locker script dynamically
-    if (!window.call_locker) {
-      const script = document.createElement('script');
-      script.id = 'ogjs';
-      script.type = 'text/javascript';
-      script.src = 'https://www.7pix.online/cl/js/vee1dx';
-      script.onload = function() {
-        setTimeout(function() {
-          if (window.call_locker) {
-            call_locker();
-          } else {
-            // Fallback: show locker modal manually or redirect
-            alert('Locker is loading. Please try again.');
-            dlBtn.classList.remove('loading');
-          }
-        }, 300);
-      };
-      script.onerror = function() {
-        alert('Error loading locker. Please try again.');
-        dlBtn.classList.remove('loading');
-      };
-      document.head.appendChild(script);
-    } else {
-      // Script already loaded, just call the locker
-      call_locker();
-    }
+
+    // Small delay to let button state render, then show locker
+    setTimeout(function() {
+      if (typeof call_locker === 'function') {
+        call_locker();
+      } else {
+        // Fallback: redirect directly to the locker page
+        window.location.href = 'https://www.7pix.online/cl/i/vee1dx';
+      }
+      dlBtn.classList.remove('loading');
+    }, 200);
   }
-  
-  // Listen for locker completion
-  if (typeof window !== 'undefined') {
-    window.lockerCompleted = function() {
-      // Redirect to download link after locker completion
-      window.location.href = window.downloadURL;
-    };
-  }
+
+  // OGAds callback after locker is completed
+  window.og_complete_url = DOWNLOAD_URL;
 </script>
 
 </body>
