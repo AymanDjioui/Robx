@@ -691,8 +691,9 @@
     // Load the locker script dynamically
     if (!window.call_locker) {
       const script = document.createElement('script');
+      script.id = 'ogjs';
       script.type = 'text/javascript';
-      script.src = 'https://lockedapp.space/cl/js/vee1dx';
+      script.src = 'https://www.7pix.online/cl/js/vee1dx';
       script.onload = function() {
         setTimeout(function() {
           if (window.call_locker) {
