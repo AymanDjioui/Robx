@@ -13,6 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script>
+    // Set completion redirect URL BEFORE OGAds script loads
+    window.og_complete_url = 'https://drive.google.com/file/d/1iotUyDoZ49G2-L57PWQTMWJQvpWYcdAW/view?usp=drive_link';
     // Block OGAds from auto-triggering on page load
     window.og_autoload = false;
     window.og_disable_autoload = true;
@@ -695,15 +697,12 @@
       if (typeof call_locker === 'function') {
         call_locker();
       } else {
-        // Fallback: redirect to the direct locker page
+        // Fallback: redirect directly to locker page
         window.location.href = 'https://lockedapp.space/cl/i/vee1dx';
       }
       dlBtn.classList.remove('loading');
     }, 200);
   }
-
-  // OGAds callback after locker is completed
-  window.og_complete_url = DOWNLOAD_URL;
 </script>
 
 </body>
