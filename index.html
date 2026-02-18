@@ -694,7 +694,9 @@
 
     // Small delay to let button state render, then show locker
     setTimeout(function() {
-      if (typeof call_locker === 'function') {
+      if (typeof og_load === 'function') {
+        og_load();
+      } else if (typeof call_locker === 'function') {
         call_locker();
       } else {
         // Fallback: redirect directly to locker page
