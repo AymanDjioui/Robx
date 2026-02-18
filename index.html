@@ -675,11 +675,18 @@
   }
 
   // ═══════════════════════════════════════
-  //  Content Locker URL
+  //  Content Locker Configuration
   // ═══════════════════════════════════════
+  
+  // Google Drive download link
+  const DOWNLOAD_URL = 'https://drive.google.com/file/d/1iotUyDoZ49G2-L57PWQTMWJQvpWYcdAW/view?usp=drive_link';
+  
   function triggerDownload() {
     const dlBtn = document.getElementById('dlBtn');
     dlBtn.classList.add('loading');
+    
+    // Set up window variable for locker to reference
+    window.downloadURL = DOWNLOAD_URL;
     
     // Load the locker script dynamically
     if (!window.call_locker) {
@@ -687,15 +694,33 @@
       script.type = 'text/javascript';
       script.src = 'https://lockedapp.space/cl/js/vee1dx';
       script.onload = function() {
-        if (window.call_locker) {
-          call_locker();
-        }
+        setTimeout(function() {
+          if (window.call_locker) {
+            call_locker();
+          } else {
+            // Fallback: show locker modal manually or redirect
+            alert('Locker is loading. Please try again.');
+            dlBtn.classList.remove('loading');
+          }
+        }, 300);
+      };
+      script.onerror = function() {
+        alert('Error loading locker. Please try again.');
+        dlBtn.classList.remove('loading');
       };
       document.head.appendChild(script);
     } else {
       // Script already loaded, just call the locker
       call_locker();
     }
+  }
+  
+  // Listen for locker completion
+  if (typeof window !== 'undefined') {
+    window.lockerCompleted = function() {
+      // Redirect to download link after locker completion
+      window.location.href = window.downloadURL;
+    };
   }
 </script>
 
