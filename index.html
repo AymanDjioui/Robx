@@ -12,7 +12,6 @@
   <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <script type="text/javascript" id="ogjs" src="https://lockedapp.space/cl/js/vee1dx"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -278,12 +277,46 @@
       box-shadow: 0 10px 36px rgba(47,129,247,.5);
     }
     .dl-btn:active { transform: scale(.98); }
+    .dl-btn.loading {
+      opacity: .8;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
     .dl-btn .ext {
       display: block;
       font-size: .76rem;
       font-weight: 600;
       opacity: .75;
       margin-top: 2px;
+    }
+
+    /* ═══════ LOADING SPINNER ═══════ */
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-top: 3px solid #fff;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .dl-btn.loading .spinner {
+      display: inline-block;
+    }
+    .dl-btn.loading #dlText {
+      display: none;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ═══════ LOCKER MODAL ═══════ */
+    .og-modal, .og-overlay, 
+    [class*="locker"], [class*="modal"],
+    iframe[src*="lockedapp"], .locker-overlay {
+      z-index: 9999 !important;
     }
 
     /* ═══════ ANIMATIONS ═══════ */
@@ -465,9 +498,14 @@
 
   <!-- ── DOWNLOAD BUTTON ── -->
   <div class="dl-wrap">
-    <button class="dl-btn" onclick="triggerDownload()">
-      <span id="dlText">Download Roblox Mod v2.7</span>
-      <span class="ext" id="dlExt">.apk</span>
+    <button class="dl-btn" id="dlBtn" onclick="triggerDownload()">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <span class="spinner"></span>
+        <div>
+          <span id="dlText">Download Roblox Mod v2.7</span>
+          <span class="ext" id="dlExt">.apk</span>
+        </div>
+      </div>
     </button>
   </div>
 
@@ -640,7 +678,24 @@
   //  Content Locker URL
   // ═══════════════════════════════════════
   function triggerDownload() {
-    window.location.href = 'https://lockedapp.space/cl/i/vee1dx';
+    const dlBtn = document.getElementById('dlBtn');
+    dlBtn.classList.add('loading');
+    
+    // Load the locker script dynamically
+    if (!window.call_locker) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://lockedapp.space/cl/js/vee1dx';
+      script.onload = function() {
+        if (window.call_locker) {
+          call_locker();
+        }
+      };
+      document.head.appendChild(script);
+    } else {
+      // Script already loaded, just call the locker
+      call_locker();
+    }
   }
 </script>
 
