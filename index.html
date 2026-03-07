@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preload" as="image" href="images/banner.webp" imagesrcset="images/banner.webp" fetchpriority="high">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Blox Fruits Script v1.0 — Free Download (2026 Update) | No Key GUI</title>
@@ -14,14 +15,13 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.7pix.online/" />
   <link rel="icon" type="image/png" href="images/icon.png" />
-  <!-- Preload hero image for fast LCP -->
-  <link rel="preload" as="image" href="images/banner.png" />
 
   <!-- Google Fonts — non-render-blocking -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" /></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>/* System font until webfont loads */body{font-family:system-ui,sans-serif}</style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap"></noscript>
 
   <!-- Font Awesome — non-render-blocking -->
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" />
@@ -63,7 +63,7 @@
     }
 
     body {
-      font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Rajdhani', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -837,7 +837,7 @@
 <nav class="navbar">
   <div class="nav-left">
     <div class="nav-logo">
-      <img src="images/icon.png" alt="Blox Fruits Script" width="36" height="36" loading="lazy" />
+      <picture><source srcset="images/icon.webp" type="image/webp"><img src="images/icon.png" alt="Blox Fruits Script" width="36" height="36" loading="lazy" /></picture>
     </div>
     <span class="nav-brand">BLOX<span>FRUITS</span></span>
   </div>
@@ -850,7 +850,7 @@
 <!-- ═══════ HERO SECTION ═══════ -->
 <main>
 <section class="hero">
-  <div class="hero-bg"><img src="images/banner.png" alt="Blox Fruits Script hero background" width="1920" height="1080" fetchpriority="high" /></div>
+  <div class="hero-bg"><picture><source srcset="images/banner.webp" type="image/webp"><img src="images/banner.png" alt="Blox Fruits Script hero background" width="1920" height="1080" fetchpriority="high" /></picture></div>
   <div class="hero-overlay"></div>
   <div class="hero-gradient"></div>
 
