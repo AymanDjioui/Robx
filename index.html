@@ -14,10 +14,18 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.7pix.online/" />
   <link rel="icon" type="image/png" href="images/icon.png" />
+  <!-- Preload hero image for fast LCP -->
+  <link rel="preload" as="image" href="images/banner.png" />
+
+  <!-- Google Fonts — non-render-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" /></noscript>
+
+  <!-- Font Awesome — non-render-blocking -->
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" /></noscript>
 
   <!-- OGAds Content Locker -->
   <script>
@@ -143,8 +151,15 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('images/banner.png') center/cover no-repeat;
       z-index: 0;
+      overflow: hidden;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
     .hero-overlay {
       position: absolute;
@@ -247,6 +262,8 @@
       animation: pulse 2s ease-in-out infinite;
       position: relative;
       overflow: hidden;
+      will-change: transform;
+      transform: translateZ(0);
     }
     .dl-btn::before {
       content: '';
@@ -293,6 +310,8 @@
       border-radius: 50%;
       animation: spin .8s linear infinite;
       flex-shrink: 0;
+      will-change: transform;
+      transform: translateZ(0);
     }
     .dl-btn.loading .spinner { display: inline-block; }
     .dl-btn.loading .dl-label { display: none; }
@@ -443,6 +462,8 @@
       padding: 24px 16px;
       text-align: center;
       transition: transform .2s, border-color .2s;
+      will-change: transform;
+      transform: translateZ(0);
     }
     .feature-card:hover {
       transform: translateY(-4px);
@@ -605,11 +626,11 @@
     }
     .seo-footer p {
       font-size: .68rem !important;
-      color: rgba(139,148,158,.4) !important;
+      color: #808890 !important;
       line-height: 1.8;
     }
     .seo-footer a {
-      color: rgba(139,148,158,.4);
+      color: #808890;
     }
 
     /* ═══════ FADE-IN ANIMATION ═══════ */
@@ -617,6 +638,7 @@
       opacity: 0;
       transform: translateY(30px);
       transition: opacity .6s ease, transform .6s ease;
+      will-change: transform, opacity;
     }
     .fade-in.visible {
       opacity: 1;
@@ -645,6 +667,8 @@
       border-radius: 50%;
       opacity: 0;
       animation: particleFloat linear infinite;
+      will-change: transform, opacity;
+      transform: translateZ(0);
     }
     @keyframes particleFloat {
       0% { transform: translateY(100vh) scale(.5); opacity: 0; }
@@ -772,7 +796,7 @@
     }
     .exit-popup p {
       font-size: .88rem;
-      color: var(--text-muted);
+      color: #a0aab4;
       margin-bottom: 22px;
       line-height: 1.5;
     }
@@ -813,7 +837,7 @@
 <nav class="navbar">
   <div class="nav-left">
     <div class="nav-logo">
-      <img src="images/icon.png" alt="Blox Fruits Script" />
+      <img src="images/icon.png" alt="Blox Fruits Script" width="36" height="36" loading="lazy" />
     </div>
     <span class="nav-brand">BLOX<span>FRUITS</span></span>
   </div>
@@ -824,8 +848,9 @@
 <div class="particles" id="particles"></div>
 
 <!-- ═══════ HERO SECTION ═══════ -->
+<main>
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg"><img src="images/banner.png" alt="Blox Fruits Script hero background" width="1920" height="1080" fetchpriority="high" /></div>
   <div class="hero-overlay"></div>
   <div class="hero-gradient"></div>
 
@@ -1098,6 +1123,7 @@
   </div>
 
 </div>
+</main>
 
 <!-- ═══════ JS ═══════ -->
 <script>
