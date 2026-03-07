@@ -686,6 +686,120 @@
       .features-grid { gap: 8px; }
       .feature-icon { width: 40px; height: 40px; font-size: 1rem; }
     }
+
+    /* ═══════ TAB PLATFORM COLORS ═══════ */
+    #tabPC.active {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      box-shadow: 0 4px 18px rgba(59,130,246,.35);
+    }
+    #tabMobile.active {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 4px 18px rgba(34,197,94,.35);
+    }
+    #tabPC:not(.active):hover { color: #60a5fa; }
+    #tabMobile:not(.active):hover { color: #4ade80; }
+
+    /* ═══════ DISCORD BUTTON ═══════ */
+    .discord-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #5865F2;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 18px rgba(88,101,242,.3);
+    }
+    .discord-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(88,101,242,.45);
+    }
+    .discord-btn i { font-size: .9rem; }
+
+    /* ═══════ EXIT INTENT POPUP ═══════ */
+    .exit-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .exit-overlay.show { display: flex; }
+    .exit-popup {
+      background: #161b22;
+      border: 1px solid rgba(224,48,48,.2);
+      border-radius: 20px;
+      padding: 36px 32px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: popIn .3s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .exit-popup-close {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .exit-popup h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .exit-popup p {
+      font-size: .88rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+    .exit-popup .exit-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, #e03030, #c41e1e);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: .85rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      box-shadow: 0 6px 24px var(--accent-glow);
+      transition: transform .15s;
+    }
+    .exit-popup .exit-cta:hover { transform: scale(1.04); }
+    @media (max-width: 480px) {
+      .exit-popup { padding: 28px 20px; }
+      .exit-popup h2 { font-size: 1rem; }
+      .exit-popup .exit-cta { padding: 14px 28px; font-size: .78rem; }
+    }
   </style>
 </head>
 <body>
@@ -726,7 +840,7 @@
     <div class="countdown-wrap">
       <i class="fa-solid fa-triangle-exclamation"></i>
       <span>Access closes in</span>
-      <span class="countdown" id="countdown">09:47</span>
+      <span class="countdown" id="countdown">15:00</span>
     </div>
 
     <!-- PLATFORM TABS -->
@@ -760,6 +874,11 @@
       <div class="trust-badge"><i class="fa-solid fa-key"></i> No Key</div>
       <div class="trust-badge"><i class="fa-solid fa-gift"></i> Free</div>
       <div class="trust-badge"><i class="fa-solid fa-eye-slash"></i> Undetected</div>
+    </div>
+
+    <!-- DISCORD -->
+    <div style="text-align:center;">
+      <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Join 12,400+ Members on Discord</a>
     </div>
   </div>
 </section>
@@ -926,18 +1045,9 @@
 
   <hr class="seo-divider" />
 
-  <!-- SECTION: FAQ -->
+  <!-- SECTION: FAQ (Additional) -->
   <div class="seo-section fade-in">
-    <h2><i class="fa-solid fa-circle-question" style="color:var(--accent);"></i> Frequently Asked Questions</h2>
-
-    <h3>Is Blox Fruits Script v1.0 safe to use?</h3>
-    <p>The script includes an anti-detection layer designed to minimize risk. However, <strong>no third-party script is 100% undetectable</strong>. Using any script may violate Roblox Terms of Service. Use at your own discretion and ideally on an alternate account.</p>
-
-    <h3>Does this script require a key?</h3>
-    <p>No. This script features a <strong>completely keyless</strong> system. No key links, no ad-gates, no waiting. The GUI loads instantly upon execution.</p>
-
-    <h3>Which executors are compatible?</h3>
-    <p>Tested and working with: <strong>Delta Executor</strong> (recommended), Synapse Z, Fluxus, Arceus X (mobile), and most Level 7+ executors.</p>
+    <h2><i class="fa-solid fa-circle-question" style="color:var(--accent);"></i> More Questions</h2>
 
     <h3>Does it work on mobile?</h3>
     <p>Yes. Fully compatible with mobile executors like <strong>Delta Mobile</strong> and <strong>Arceus X</strong>. The GUI is optimized for touch screens.</p>
@@ -947,6 +1057,22 @@
 
     <h3>How do I update the script?</h3>
     <p>The script auto-checks for updates on each execution. You can also revisit this page for the latest release.</p>
+  </div>
+
+  <hr class="seo-divider" />
+
+  <!-- TOP FAQ — Objection Handlers Above CTA -->
+  <div class="seo-section fade-in">
+    <h2><i class="fa-solid fa-circle-question" style="color:var(--accent);"></i> Frequently Asked</h2>
+
+    <h3>Is it safe to use?</h3>
+    <p>Built with an anti-detection layer to minimize risk. However, <strong>no script is 100% undetectable</strong>. Use at your own discretion, ideally on an alt account.</p>
+
+    <h3>Does it require a key?</h3>
+    <p>No. <strong>Completely keyless</strong> — no links, no ad-gates, no waiting. The GUI loads instantly.</p>
+
+    <h3>Which executors work?</h3>
+    <p><strong>Delta Executor</strong> (recommended), Synapse Z, Fluxus, Arceus X, and most Level 7+ executors.</p>
   </div>
 
   <hr class="seo-divider" />
@@ -967,7 +1093,7 @@
       Roblox® is a registered trademark of Roblox Corporation. Blox Fruits™ is a trademark of its respective owner.<br>
       This tool is provided for educational purposes only. Use of third-party scripts may violate game Terms of Service.<br>
       © 2026 7pix.online. All rights reserved.
-      <br><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a> · <a href="#">DMCA</a>
+      <br><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms of Service</a> · <a href="/dmca.html">DMCA</a>
     </p>
   </div>
 
@@ -1007,17 +1133,33 @@
     });
   })();
 
-  // ── Countdown Timer ──
+  // ── Countdown Timer (persistent via localStorage) ──
   (function() {
-    let total = 9 * 60 + 47; // 9:47
-    const el = document.getElementById('countdown');
+    var DURATION = 15 * 60;
+    var KEY = 'countdown_end';
+    var el = document.getElementById('countdown');
+    var stored = localStorage.getItem(KEY);
+    var now = Math.floor(Date.now() / 1000);
+    var endTime;
+
+    if (stored && parseInt(stored, 10) > now) {
+      endTime = parseInt(stored, 10);
+    } else {
+      endTime = now + DURATION;
+      localStorage.setItem(KEY, endTime);
+    }
 
     function tick() {
-      if (total <= 0) { total = 9 * 60 + 47; } // reset loop
-      const m = Math.floor(total / 60);
-      const s = total % 60;
+      var now = Math.floor(Date.now() / 1000);
+      var remaining = endTime - now;
+      if (remaining <= 0) {
+        endTime = Math.floor(Date.now() / 1000) + DURATION;
+        localStorage.setItem(KEY, endTime);
+        remaining = DURATION;
+      }
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
       el.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-      total--;
     }
     tick();
     setInterval(tick, 1000);
@@ -1043,17 +1185,17 @@
     }
   }
 
-  // ── Social proof counter animation ──
+  // ── Social proof counter (+1 every 8-15s) ──
   (function() {
-    const base = 4821;
-    const el = document.getElementById('proofCount');
-    let current = base;
-    setInterval(function() {
-      if (Math.random() > .6) {
-        current += Math.floor(Math.random() * 3) + 1;
-        el.textContent = current.toLocaleString();
-      }
-    }, 8000);
+    var current = 4821;
+    var el = document.getElementById('proofCount');
+    function bump() {
+      current++;
+      el.textContent = current.toLocaleString();
+      var next = (8 + Math.random() * 7) * 1000;
+      setTimeout(bump, next);
+    }
+    setTimeout(bump, (8 + Math.random() * 7) * 1000);
   })();
 
   // ═══════════════════════════════════════
@@ -1077,6 +1219,40 @@
       dlBtn.classList.remove('loading');
     }, 200);
   }
+</script>
+
+<!-- ═══════ EXIT INTENT POPUP ═══════ -->
+<div class="exit-overlay" id="exitOverlay">
+  <div class="exit-popup">
+    <button class="exit-popup-close" id="exitClose">&times;</button>
+    <h2>Wait! Don't Miss Free Access &#x1F513;</h2>
+    <p>Your slot is still reserved for the next 5 minutes</p>
+    <button class="exit-cta" id="exitCta">Claim Free Access Now <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<script>
+(function() {
+  if (!sessionStorage.getItem('exitShown')) {
+    document.addEventListener('mouseleave', function handler(e) {
+      if (e.clientY <= 0) {
+        document.getElementById('exitOverlay').classList.add('show');
+        sessionStorage.setItem('exitShown', '1');
+        document.removeEventListener('mouseleave', handler);
+      }
+    });
+  }
+  document.getElementById('exitClose').addEventListener('click', function() {
+    document.getElementById('exitOverlay').classList.remove('show');
+  });
+  document.getElementById('exitOverlay').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+  document.getElementById('exitCta').addEventListener('click', function() {
+    document.getElementById('exitOverlay').classList.remove('show');
+    document.getElementById('dlBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
 </script>
 
 </body>
