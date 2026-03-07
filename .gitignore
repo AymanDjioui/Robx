@@ -1,1 +1,6 @@
-node_modules/\npackage.json\npackage-lock.json\nicon-paths.json\nprocess-html.js\nconvert-images.js
+node_modules/
+package.json
+package-lock.json
+icon-paths.json
+process-html.js
+convert-images.js
