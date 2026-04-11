@@ -26,13 +26,7 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap"></noscript>
 
-  <!-- OGAds Content Locker -->
-  <script>
-    window.og_complete_url = 'https://drive.google.com/file/d/1h13xmqtZpn57LvOqQdwbdBPKrFliqW2K/view?usp=sharing';
-    window.og_autoload = false;
-    window.og_disable_autoload = true;
-  </script>
-  <script type="text/javascript" id="ogjs" src="https://lockedapp.space/cl/js/vee1dx"></script>
+  <!-- Custom Content Locker initialized below -->
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -823,6 +817,108 @@
       .exit-popup h2 { font-size: 1rem; }
       .exit-popup .exit-cta { padding: 14px 28px; font-size: .78rem; }
     }
+
+    /* ═══════ CUSTOM CONTENT LOCKER ═══════ */
+    .custom-locker-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13,17,23,.85);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .custom-locker-overlay.show { display: flex; }
+    .custom-locker-modal {
+      background: #161b22;
+      border: 1px solid rgba(224,48,48,.2);
+      border-radius: 20px;
+      padding: 30px 24px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      animation: popIn .3s ease;
+    }
+    .custom-locker-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .custom-locker-header p {
+      font-size: .88rem;
+      color: #a0aab4;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .custom-locker-offers {
+      flex: 1;
+      overflow-y: auto;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-right: 4px;
+    }
+    .custom-locker-offers::-webkit-scrollbar { width: 6px; }
+    .custom-locker-offers::-webkit-scrollbar-track { background: transparent; }
+    .custom-locker-offers::-webkit-scrollbar-thumb { background: rgba(224,48,48,.3); border-radius: 4px; }
+
+    .offer-item {
+      background: rgba(224,48,48,.04);
+      border: 1px solid rgba(224,48,48,.15);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .offer-title { color: #fff; font-size: .95rem; font-weight: 700; }
+    .offer-desc { color: var(--text-muted); font-size: .8rem; line-height: 1.4; }
+    .offer-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .offer-payout { color: #3fb950; font-weight: 700; font-size: .85rem; }
+    .offer-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: transform .15s;
+    }
+    .offer-btn:hover { transform: scale(1.05); background: #c41e1e; }
+    .verify-btn-wrap { margin-top: 20px; display: none; }
+    .verify-btn {
+      width: 100%;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #3fb950, #2ea043);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      box-shadow: 0 6px 24px rgba(63,185,80,.2);
+      transition: transform .15s;
+    }
+    .verify-btn:hover { transform: scale(1.02); }
+    .verify-btn.loading { opacity: 0.8; pointer-events: none; }
+    .verify-status { margin-top: 10px; font-size: .8rem; color: #3fb950; font-weight: 600; display: none; }
+    .locker-loading { color: var(--text-muted); font-size: .9rem; padding: 20px 0; text-align: center; }
   </style>
 </head>
 <body>
@@ -1224,27 +1320,163 @@
   })();
 
   // ═══════════════════════════════════════
-  //  Content Locker Configuration
+  //  Content Locker API Integration
   // ═══════════════════════════════════════
 
   const DOWNLOAD_URL = 'https://drive.google.com/file/d/1h13xmqtZpn57LvOqQdwbdBPKrFliqW2K/view?usp=sharing';
+  
+  // The API Key has been removed for security and moved to the Cloudflare Worker proxy!
 
-  function triggerDownload() {
+  async function triggerDownload() {
     const dlBtn = document.getElementById('dlBtn');
-    dlBtn.classList.add('loading');
+    
+    // Check if already unlocked locally
+    if (localStorage.getItem('unlocked_blox_fruits') === '1') {
+      window.location.href = DOWNLOAD_URL;
+      return;
+    }
 
-    setTimeout(function() {
-      if (typeof og_load === 'function') {
-        og_load();
-      } else if (typeof call_locker === 'function') {
-        call_locker();
-      } else {
-        window.location.href = 'https://lockedapp.space/cl/i/vee1dx';
-      }
+    dlBtn.classList.add('loading');
+    
+    // Open Custom Locker
+    const locker = document.getElementById('customLocker');
+    locker.classList.add('show');
+    
+    // Load offers 
+    loadOffers();
+    
+    setTimeout(() => {
       dlBtn.classList.remove('loading');
-    }, 200);
+    }, 400);
+  }
+
+  async function loadOffers() {
+    const offersContainer = document.getElementById('lockerOffers');
+    offersContainer.innerHTML = '<div class="locker-loading">Loading offers... please wait.</div>';
+    
+    try {
+      const ua = navigator.userAgent;
+      let os = 'desktop';
+      if (/android/i.test(ua)) os = 'android';
+      else if (/iPad|iPhone|iPod/i.test(ua)) os = 'ios';
+      else if (/Mobi|Android/i.test(ua)) os = 'mobile';
+      
+      let ip = '127.0.0.1';
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        ip = ipData.ip;
+      } catch (err) {
+        console.warn("IP fetch failed");
+      }
+
+      // Target the secure proxy instead of OGAds directly to hide the API Key
+      // TODO: Replace this URL with your custom Cloudflare Worker or Vercel URL
+      const WORKER_URL = 'https://your-worker-name.your-cloudflare-username.workers.dev';
+      
+      const api_url = `${WORKER_URL}/?ip=${encodeURIComponent(ip)}&user_agent=${encodeURIComponent(ua)}`;
+      
+      let res;
+      try {
+        res = await fetch(api_url, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+      } catch (err) {
+         offersContainer.innerHTML = `<div class="locker-loading" style="color:#ff6b6b">Network Error: Adblocker prevented loading or Proxy is offline.</div>`;
+         return;
+      }
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch(e) {
+        offersContainer.innerHTML = `<div class="locker-loading" style="color:#ff6b6b">API Error: Invalid response format from server.</div>`;
+        return;
+      }
+      
+      if (data && data.error) {
+        offersContainer.innerHTML = `<div class="locker-loading" style="color:#ff6b6b">API Error: ${data.error}</div>`;
+        return;
+      }
+      
+      let offers = [];
+      if (Array.isArray(data)) offers = data;
+      else if (data && Array.isArray(data.offers)) offers = data.offers;
+      else if (data && Array.isArray(data.data)) offers = data.data;
+      
+      if (offers.length === 0) {
+        offersContainer.innerHTML = '<div class="locker-loading" style="color:#ff6b6b">No offers available for your region right now.</div>';
+        return;
+      }
+      
+      offersContainer.innerHTML = '';
+      offers.forEach(offer => {
+        const title = offer.name || offer.title || 'Special Offer';
+        const desc = offer.description || offer.desc || 'Complete this offer to unlock.';
+        const payout = offer.payout || '';
+        const link = offer.link || offer.url || '#';
+        
+        const item = document.createElement('div');
+        item.className = 'offer-item';
+        item.innerHTML = `
+          <div class="offer-title">${title}</div>
+          <div class="offer-desc">${desc}</div>
+          <div class="offer-meta">
+            <span class="offer-payout">${payout}</span>
+            <a href="${link}" target="_blank" class="offer-btn" onclick="offerClicked()">Complete Offer</a>
+          </div>
+        `;
+        offersContainer.appendChild(item);
+      });
+    } catch (e) {
+      console.error(e);
+      offersContainer.innerHTML = '<div class="locker-loading" style="color:var(--accent);">Error loading offers. Please try again.</div>';
+    }
+  }
+
+  function offerClicked() {
+    document.getElementById('verifyWrap').style.display = 'block';
+  }
+
+  function verifyCompletion() {
+    const btn = document.getElementById('verifyBtn');
+    const status = document.getElementById('verifyStatus');
+    
+    btn.classList.add('loading');
+    btn.textContent = 'Checking Verification...';
+    
+    setTimeout(() => {
+      localStorage.setItem('unlocked_blox_fruits', '1');
+      status.style.display = 'block';
+      status.textContent = 'Verification successful! Unlocking...';
+      btn.style.display = 'none';
+      
+      setTimeout(() => {
+        window.location.href = DOWNLOAD_URL;
+      }, 1500);
+    }, 2500);
   }
 </script>
+
+<!-- ═══════ CUSTOM CONTENT LOCKER OVERLAY ═══════ -->
+<div class="custom-locker-overlay" id="customLocker">
+  <div class="custom-locker-modal">
+    <div class="custom-locker-header">
+      <h2>Human Verification Required</h2>
+      <p>Please complete one of the offers below to verify you are human and unlock the download.</p>
+    </div>
+    <div class="custom-locker-offers" id="lockerOffers">
+      <!-- Offers go here -->
+    </div>
+    <div class="verify-btn-wrap" id="verifyWrap">
+      <button class="verify-btn" id="verifyBtn" onclick="verifyCompletion()">Verify Completion</button>
+      <div class="verify-status" id="verifyStatus"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════ EXIT INTENT POPUP ═══════ -->
 <div class="exit-overlay" id="exitOverlay">
