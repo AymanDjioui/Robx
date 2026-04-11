@@ -1385,7 +1385,7 @@
           }
         });
       } catch (err) {
-         offersContainer.innerHTML = `<div class="locker-loading" style="color:#ff6b6b">Network Error: Adblocker prevented loading or Proxy is offline.</div>`;
+         offersContainer.innerHTML = `<div class="locker-loading" style="color:#ff6b6b; font-size: 14px;">Error: You have not deployed or entered your Cloudflare Worker URL in the index.html file yet. Please set WORKER_URL on line 1375.</div>`;
          return;
       }
       
