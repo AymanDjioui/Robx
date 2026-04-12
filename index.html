@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="preload" as="image" href="images/banner.webp" imagesrcset="images/banner.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="images/banner.webp" type="image/webp" fetchpriority="high">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Blox Fruits Script v1.0 — Free Download (2026 Update) | No Key GUI</title>
@@ -16,10 +16,18 @@
   <link rel="canonical" href="https://www.7pix.online/" />
   <link rel="icon" type="image/png" href="images/icon.png" />
 
+  <link rel="preconnect" href="https://api.ipify.org">
+  <link rel="preconnect" href="https://wild-bar-3b8e.djiouiayman-ecom.workers.dev">
+  <link rel="dns-prefetch" href="https://api.ipify.org">
+  <link rel="dns-prefetch" href="https://wild-bar-3b8e.djiouiayman-ecom.workers.dev">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <style>body{font-family:system-ui,sans-serif}</style>
+  <style>
+    body { font-family: 'Poppins', system-ui, -apple-system, sans-serif; }
+    h1, h2, h3 { font-family: 'Poppins', system-ui, sans-serif; }
+  </style>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"></noscript>
 
@@ -40,6 +48,7 @@
     .icon{display:inline-block;width:1em;height:1em;fill:currentColor;vertical-align:-.125em;overflow:visible}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    :focus-visible { outline: 2px solid var(--accent-1); outline-offset: 2px; }
 
     :root {
       --bg: #0b0f19;
@@ -134,6 +143,8 @@
       object-fit: cover;
       object-position: center top;
       display: block;
+      content-visibility: auto;
+      will-change: transform;
     }
     .hero-overlay { position: absolute; inset: 0; background: rgba(11, 15, 25, 0.65); z-index: 1; }
     .hero-gradient { position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(transparent, var(--bg)); z-index: 2; }
@@ -167,6 +178,7 @@
       font-size: 1.2rem; letter-spacing: 2px; color: #fff;
       background: rgba(251, 133, 0, 0.2); padding: 8px 20px;
       border-radius: 10px; border: 1px solid var(--accent-2);
+      min-width: 5ch; display: inline-block; text-align: center;
     }
 
     /* ═══════ CTA BUTTONS ═══════ */
@@ -542,7 +554,7 @@
 <nav class="navbar">
   <a href="#" class="nav-left">
     <div class="nav-logo">
-      <picture><source srcset="images/icon.webp" type="image/webp"><img src="images/icon.png" alt="Blox Fruits Script"></picture>
+      <picture><source srcset="images/icon.webp" type="image/webp"><img src="images/icon.png" alt="Blox Fruits Script logo" width="40" height="40" loading="eager" decoding="async"></picture>
     </div>
     <span class="nav-brand">BLOX<span>FRUITS</span></span>
   </a>
@@ -553,18 +565,18 @@
       <li><a href="#how-to-use" onclick="toggleMenu()">How to Use</a></li>
       <li><a href="#faq" onclick="toggleMenu()">FAQ</a></li>
     </ul>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" aria-label="Open menu" onclick="toggleMenu()">☰</button>
   </div>
 </nav>
 
 <section class="hero" id="scripts">
-  <div class="hero-bg"><picture><source srcset="images/banner.webp" type="image/webp"><img src="images/banner.png" alt="Blox Fruits Script"></picture></div>
+  <div class="hero-bg"><picture><source srcset="images/banner.webp" type="image/webp"><img src="images/banner.png" alt="Blox Fruits Script gameplay" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async"></picture></div>
   <div class="hero-overlay"></div>
   <div class="hero-gradient"></div>
 
   <div class="hero-content fade-in">
     <div class="hero-viewers">
-      <div class="live-dot"></div> <span id="viewersCount">247</span> players waiting for this script right now
+      <div class="live-dot"></div> <span id="viewersCount" style="min-width: 3ch; display: inline-block; text-align: center;">247</span> players waiting for this script right now
     </div>
     <div class="hero-pill"><svg class="icon" style="color:var(--accent-2); margin-right:4px;"><use href="#i-check-c"/></svg> Updated Today 2026</div>
     <h1>Blox Fruits Script</h1>
@@ -572,10 +584,10 @@
 
     <div class="countdown-wrap">
       <span>Free Access Expires In:</span>
-      <span class="countdown" id="countdown">04:59</span>
+      <span class="countdown" id="countdown" aria-live="polite" aria-label="Time remaining">04:59</span>
     </div>
     
-    <div class="slots-warning" id="slotsWarning">⚠️ Only 28 free slots left today</div>
+    <div class="slots-warning" id="slotsWarning" aria-live="polite">⚠️ Only 28 free slots left today</div>
 
     <div class="tabs-wrap">
       <div class="tabs">
@@ -1035,7 +1047,7 @@
         
         let picHtml = '<div class="offer-pic">🎁</div>';
         if (offer.picture) {
-           picHtml = `<div class="offer-pic"><img src="${offer.picture}" alt="icon"></div>`;
+           picHtml = `<div class="offer-pic"><img src="${offer.picture}" alt="${title}" loading="lazy" decoding="async" width="48" height="48"></div>`;
         }
 
         let featuredHtml = '';
