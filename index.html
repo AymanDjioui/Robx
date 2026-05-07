@@ -44,6 +44,16 @@
   }
   </script>
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ1FWNQ9CG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-BJ1FWNQ9CG');
+  </script>
+
   <style>
     .icon{display:inline-block;width:1em;height:1em;fill:currentColor;vertical-align:-.125em;overflow:visible}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2004,7 +2014,7 @@
         return;
       }
 
-      window.ogAdsIp = ip;
+      window.adBlueMediaIp = ip;
 
       // Target the secure proxy instead of OGAds directly to hide the API Key
       // TODO: Replace this URL with your custom Cloudflare Worker or Vercel URL
@@ -2056,8 +2066,8 @@
       
       offersContainer.innerHTML = '';
       offers.forEach((offer, index) => {
-        const title = offer.name || offer.title || 'Special Offer';
-        let desc = offer.description || offer.desc || 'Complete this offer to unlock.';
+        const title = offer.name || offer.title || offer.anchor || 'Special Offer';
+        let desc = offer.description || offer.desc || offer.conversion || 'Complete this offer to unlock.';
         if (desc.length > 80) desc = desc.substring(0, 80) + '...';
         const link = offer.link || offer.url || '#';
         
@@ -2152,7 +2162,7 @@
     
     try {
       const ua = navigator.userAgent;
-      const ip = window.ogAdsIp || '';
+      const ip = window.adBlueMediaIp || '';
       
       if (!ip) {
         throw new Error('No IP');

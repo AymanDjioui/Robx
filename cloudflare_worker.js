@@ -27,24 +27,46 @@ export default {
       });
     }
 
-    // 2. Fetch from OGAds secure API
-    const ogAdsUrl = `https://checkmyapp.space/api/v2?ip=${encodeURIComponent(ip)}&user_agent=${encodeURIComponent(userAgent)}`;
-    
-    // IMPORTANT: env.OGADS_API_KEY must be stored securely in your Cloudflare Worker Settings!
-    const apiKey = env.OGADS_API_KEY; 
+    // IMPORTANT: env.ADBLUEMEDIA_API_KEY and env.ADBLUEMEDIA_USER_ID must be stored securely in your Cloudflare Worker Settings!
+    const apiKey = env.ADBLUEMEDIA_API_KEY;
+    const userId = env.ADBLUEMEDIA_USER_ID;
+
+    if (!apiKey || !userId) {
+      return new Response(JSON.stringify({ error: "Cloudflare Worker configuration error: Missing ADBLUEMEDIA_API_KEY or ADBLUEMEDIA_USER_ID in environment variables." }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+
+    // 2. Fetch from AdBlueMedia secure API
+    const adBlueMediaUrl = `https://de6jvomfbm0af.cloudfront.net/public/offers/feed.php?user_id=${encodeURIComponent(userId)}&api_key=${encodeURIComponent(apiKey)}&ip=${encodeURIComponent(ip)}&user_agent=${encodeURIComponent(userAgent)}`;
 
     try {
-      const apiResponse = await fetch(ogAdsUrl, {
+      const apiResponse = await fetch(adBlueMediaUrl, {
         method: "GET",
         headers: {
-          "Authorization": "Bearer " + apiKey,
           "Accept": "application/json"
         }
       });
+      let data;
+      const textResponse = await apiResponse.text();
+      try {
+        data = JSON.parse(textResponse);
+      } catch (e) {
+        // If it's not JSON, it might be an error string like "Auth error"
+        return new Response(JSON.stringify({ error: textResponse || "Invalid response format from AdBlueMedia" }), {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        });
+      }
 
-      const data = await apiResponse.json();
-
-      // 3. Return the OGAds JSON perfectly back to index.html with CORS unlocked!
+      // 3. Return the AdBlueMedia JSON perfectly back to index.html with CORS unlocked!
       return new Response(JSON.stringify(data), {
         status: apiResponse.status,
         headers: {
@@ -54,7 +76,7 @@ export default {
       });
 
     } catch (err) {
-      return new Response(JSON.stringify({ error: "Failed to connect to OGAds backend." }), {
+      return new Response(JSON.stringify({ error: "Failed to connect to AdBlueMedia backend." }), {
         status: 500,
         headers: {
           "Content-Type": "application/json",
